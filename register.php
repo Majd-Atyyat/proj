@@ -91,7 +91,7 @@ else{
         $confirm_password=mysqli_real_escape_string($conn,$_POST['confirm_password']);
         
         if(empty($_POST['image'])){
-            $path='default.jpg';
+            $path='user_default.jpg';
          }
          else { $path =$_POST['image'];
      
@@ -190,18 +190,20 @@ else{
                             </div>
                     
                             <div class="mb-3">
- <h6 class="text-dark"> upload your image</h6>
-  <input class="form-control" type="file" name='image' id="formFile">
+
+  <input class="form-control" type="hidden" name='image' id="formFile">
 </div>
 
                             <div class="form-group form-button">
                                 <input type="submit" name="submit" id="signup" class="form-submit" value="Register"/>
                             </div>
+                            <div class="form-group form-button">
+<a href="./login.php" class="signup-image-link">I am already member</a>
+    </div>
                         </form>
                     </div>
                     <div class="signup-image">
-                        <figure><img src="assets/images/signup-image.jpg" alt="sing up image"></figure>
-                        <a href="./login.php" class="signup-image-link">I am already member</a>
+                        <figure><img src="assets/images/signup.jpg" alt="sing up image"></figure>
                     </div>
                 </div>
             </div>

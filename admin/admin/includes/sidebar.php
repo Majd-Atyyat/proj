@@ -5,7 +5,7 @@
       <!-- link to home page  -->
       <a class="navbar-brand m-0" href=" ../../index.php " target="_SELF"> 
       <!-- name of the website -->
-        <span class="ms-1 font-weight-bold text-white">  COZA store </span>
+        <span class="ms-1 font-weight-bold text-white">  Back To Home </span>
       </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">

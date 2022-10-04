@@ -89,9 +89,9 @@ if(isset($_POST['submit'])){
          }
         
           if(array_filter($errors)){
-             $message='errors in the form';
+             $message1='errors in the form';
             
-            //  echo ' <div class="alert alert-info" role="alert">'. $message .'  </div>';
+             echo ' <div class="alert alert-info" role="alert">'. $message1 .'  </div>';
          
           }
         

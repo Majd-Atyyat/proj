@@ -58,8 +58,8 @@ if(isset($_POST['submit'])){
             <div class="container mt-5">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="assets/images/signin-image.jpg" alt="sing up image"></figure>
-                        <a href="./register.php" class="signup-image-link">Create an account</a>
+                        <figure><img src="assets/images/signin.webp" alt="sing up image"></figure>
+                       
                     </div>
 
                     <div class="signin-form">
@@ -77,9 +77,14 @@ if(isset($_POST['submit'])){
                             
                             <div class="form-group form-button">
                                 <input type="submit" name="submit" id="signin" class="form-submit" value="Log in"/>
+        
                             </div>
+                            <div class="form-group">
+                            <a href="./register.php" class="signup-image-link">Create an account</a>
+                            </div>
+                            
                         </form>
-                       
+                      
                     </div>
                 </div>
             </div>

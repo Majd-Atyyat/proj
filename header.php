@@ -3,6 +3,7 @@
 
 session_start();
 
+$_SESSION["cart"]=array();
 
 $hostName = "localhost";
 $userName = "root";
@@ -110,7 +111,7 @@ $id="";
 					
 					<!-- Logo desktop -->		
 					<a href="#" class="logo">
-						<img src="images/icons/logo-01.png" alt="IMG-LOGO">
+						<img src="images/icons/logomain.png" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->

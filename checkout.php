@@ -27,6 +27,12 @@ $id="";
 if(isset($_SESSION['user_name'])){
     // header("location: checkout.php");
     $name=$_SESSION['user_name'];
+    $sql = "SELECT * FROM users where first_name='$name' ";
+  $result = mysqli_query($conn, $sql);
+  if($row=$result->fetch_assoc()){
+    $email=$row["email"];
+    $phone=$row["phone"];
+  };
     // echo "$name";
 	// exit;
               
@@ -187,29 +193,35 @@ span.price {
             <label for="fname" id="full"><i class="fa fa-user"></i> Full Name</label>
             <input type="text" id="fname" name="firstname" placeholder="" required>
             <div id="nameerror" style="color: red;"></div>
-
+           
+								
+								
             <label for="email" id="emaillabel"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="" required>
+            <input type="text" id="email" name="email" placeholder="" value ="<?php echo $email;?>"required>
+            <div id="emailerror" style="color: red;"></div>
+
+            <label id="emaillabel"><i class="fa fa-phone"></i> Phone</label>
+            <input type="text" id="email" name="phone" placeholder="" value ="<?php echo $phone;?>"required>
             <div id="emailerror" style="color: red;"></div>
 
             <label for="adr" id="addresslabel"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address" placeholder="Al Rawabi Street" required>
+            <input type="text" id="adr" name="address" required>
             <div id="addresserror" style="color: red;"></div>
 
             <label for="city" id="citylabel"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="Al-Salt" required>
+            <input type="text" id="city" name="city" required>
             <div id="cityerror" style="color: red;"></div>
 
             <div class="row">
               <div class="col-50">
                 <label for="state" id="statelabel">State</label>
-                <input type="text" id="state" name="state" placeholder="Salt" required>
+                <input type="text" id="state" name="state"  required>
                 <div id="stateerror" style="color: red;"></div>
               </div>
 
               <div class="col-50">
-                <label for="zip" id="ziplabel">Zip</label>
-                <input type="text" id="zip" name="zip" placeholder="19110" required>
+                <label id="ziplabel">Postal Code</label>
+                <input type="text" id="zip" name="zip"  required>
                 <div id="ziperror" style="color: red;"></div>
               </div>
             </div>
@@ -229,22 +241,22 @@ span.price {
             <div id="cnameerror" style="color: red;"></div>
 
             <label for="ccnum" id="ccnumlabel">Credit card number</label>
-            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
+            <input type="text" id="ccnum" name="cardnumber"  required>
             <div id="ccnumerror" style="color: red;"></div>
 
             <label for="expmonth" id="expmonthlabel">Exp Month</label>
-            <input type="text" id="expmonth" name="expmonth" placeholder="September" required>
+            <input type="text" id="expmonth" name="expmonth"  required>
             <div id="expmontherror" style="color: red;"></div>
 
             <div class="row">
               <div class="col-50">
                 <label for="expyear" id="expyearlabel">Exp Year</label>
-                <input type="text" id="expyear" name="expyear" placeholder="2025" required>
+                <input type="text" id="expyear" name="expyear" required>
                 <div id="emailerror" style="color: red;"></div>
               </div>
               <div class="col-50">
                 <label for="cvv" id="cvvlabel">CVV</label>
-                <input type="text" id="cvv" name="cvv" placeholder="352" required>
+                <input type="text" id="cvv" name="cvv" required>
                 <div id="emailerror" style="color: red;"></div>
               </div>
             </div>
@@ -271,6 +283,8 @@ span.price {
      }
      else{
          header("location: login.php");
+         echo "<script>alert('your order has been sent successfully');</script>";
+
          // exit;
      }
     ?>

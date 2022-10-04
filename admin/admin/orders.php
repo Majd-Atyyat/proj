@@ -16,10 +16,19 @@ include ('../config/dbcon.php');
         <th>Product</th>
         <th> Quantity</th>
         <th>Price</th>
+        <th>Action</th>
         
   </tr>
+
   <?php
 
+ // delete 
+ if (isset($_GET['deleteid'])) {
+  $id = $_GET['deleteid'];
+
+  mysqli_query($con, "DELETE FROM orders WHERE id=".$id);
+  
+}
  //PRINT Table from data base
   $sql = "SELECT * FROM orders  ";
   $result = mysqli_query($con, $sql);
@@ -34,6 +43,10 @@ $id=$row["id"];
     <td>".$row["product_name"]."</td>
     <td>".$row["qty"]."</td>
     <td>".$row["price"]."</td>
+    <td>";?>
+ 
+    <button  class='btn btn-danger'><a onclick="return confirm('Do you want to delete this record?')" href=<?php echo"'orders.php?deleteid=".$id."' class='text-light remove'><i class='bi bi-trash3-fill'></i></a></button>
+    </td>
    
    </tr>";
   }

@@ -9,7 +9,25 @@ $dbName = "ecommerce";
 $conn= new mysqli($hostName,$userName,$password,$dbName);
 
 $id="";
+if(isset($_SESSION['user_name'])){
+	$name=$_SESSION['user_name'];
+	$sql = "SELECT * FROM users where first_name='$name' ";
+	$result = mysqli_query($conn, $sql);
+	if($row=$result->fetch_assoc()){
+	  $user_id=$row["id"];
+	  $image=$row["image"];
+	  
+}}
+if(isset($_POST['submit'])){
+	
+	$comment=$_POST['comment'];
+	$product_id=$_POST['product_id'];
+	$sql_add=" INSERT INTO comments (user_id,product_id ,comment) 
+	VALUES('$user_id','$product_id','$comment')";
+    mysqli_query($conn, $sql_add);
+header("Location:product-detail.php?id=$product_id");
 
+}
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 	
@@ -18,7 +36,6 @@ if (isset($_GET['id'])) {
    
    
 
-	$_SESSION["cart"]=array();
 
 
 if (isset($_POST['btn_addcart'])) {
@@ -285,25 +302,7 @@ include "header2.php"
 						</form>
 					
 						<!--  -->
-						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-							<div class="flex-m bor9 p-r-10 m-r-11">
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-									<i class="zmdi zmdi-favorite"></i>
-								</a>
-							</div>
-
-							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-								<i class="fa fa-facebook"></i>
-							</a>
-
-							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-								<i class="fa fa-twitter"></i>
-							</a>
-
-							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-								<i class="fa fa-google-plus"></i>
-							</a>
-						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -347,7 +346,7 @@ include "header2.php"
 										<!-- Review -->
 <?php
  //PRINT  from data base
-  $sql = "SELECT comment_id ,first_name,product_name,comment,'image'
+  $sql = "SELECT comment_id ,first_name,product_name,comment
   FROM comments 
   INNER JOIN users
   ON users.id = comments.user_id
@@ -360,7 +359,7 @@ include "header2.php"
 $id=$row["comment_id"];?>
     <div class="flex-w flex-t p-b-68">
         <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-            <img src='img/<?= $row["image"]  ?>' alt="AVATAR">
+            <img src='img/<?= $image ?>' alt="AVATAR">
 
         </div>
         <div class="size-207">
@@ -377,48 +376,27 @@ $id=$row["comment_id"];?>
     </div> 
     <?php } ?>
 										<!-- Add review -->
-										<form class="w-full">
+										<form class="w-full" method="post" action="">
 											<h5 class="mtext-108 cl2 p-b-7">
 												Add a review
 											</h5>
 
-											<p class="stext-102 cl6">
-												Your email address will not be published. Required fields are marked *
-											</p>
+										
 
-											<div class="flex-w flex-m p-t-50 p-b-23">
-												<span class="stext-102 cl3 m-r-16">
-													Your Rating
-												</span>
-
-												<span class="wrap-rating fs-18 cl11 pointer">
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<input class="dis-none" type="number" name="rating">
-												</span>
-											</div>
+										
 
 											<div class="row p-b-25">
 												<div class="col-12 p-b-5">
 													<label class="stext-102 cl3" for="review">Your review</label>
-													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
+													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="comment"></textarea>
 												</div>
 
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="name">Name</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="name">
-												</div>
+												<input type="hidden" name="product_id" value="<?php echo $_GET['id'] ;?>">
 
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="email">Email</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="email">
-												</div>
+												
 											</div>
 
-											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+											<button type="submit" name="submit" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
 												Submit
 											</button>
 										</form>
@@ -490,12 +468,7 @@ $id=$row["comment_id"];?>
 									</span>
 								</div>
 
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
+								
 							</div>
 							
 						</div>
